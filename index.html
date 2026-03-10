@@ -1,0 +1,232 @@
+```html id="qv4rjx"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Encrypted Portal</title>
+
+<style>
+
+body{
+margin:0;
+background:#020617;
+font-family:monospace;
+color:#22c55e;
+text-align:center;
+overflow:hidden;
+}
+
+.container{
+margin-top:100px;
+position:relative;
+z-index:5;
+}
+
+button{
+padding:12px 25px;
+background:#22c55e;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-size:16px;
+color:black;
+margin-top:10px;
+}
+
+#message{
+margin-top:20px;
+font-size:22px;
+min-height:60px;
+color:white;
+}
+
+#timer{
+font-size:20px;
+margin-top:15px;
+color:#38bdf8;
+}
+
+/* balloons */
+
+.balloon{
+position:absolute;
+width:30px;
+height:40px;
+border-radius:50%;
+bottom:-50px;
+opacity:0.8;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+/* confetti */
+
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+background:red;
+animation:confettiFall 5s linear infinite;
+}
+
+@keyframes confettiFall{
+0%{transform:translateY(-10vh) rotate(0)}
+100%{transform:translateY(110vh) rotate(720deg)}
+}
+
+.cake{
+display:none;
+font-size:120px;
+margin-top:25px;
+}
+
+.candle{
+font-size:40px;
+animation:flicker 0.6s infinite alternate;
+}
+
+@keyframes flicker{
+from{opacity:1}
+to{opacity:0.5}
+}
+
+.hidden{
+display:none;
+margin-top:25px;
+font-size:24px;
+color:#f472b6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🔐 Encrypted Message Detected</h2>
+
+<p>Ray, a classified message has been unlocked.</p>
+
+<div id="timer"></div>
+
+<button onclick="start()">Decrypt Message</button>
+
+<div id="message"></div>
+
+<div id="cake" class="cake">
+🎂
+<div id="candles" class="candle">🕯🕯🕯</div>
+<button onclick="blow()">Blow Candles</button>
+</div>
+
+<div id="hidden" class="hidden">
+💖 From someone who cares about you a lot
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3">
+</audio>
+
+</div>
+
+<script>
+
+/* SET RAY BIRTHDAY DATE */
+let birthday = new Date("2026-04-15 00:00:00").getTime()
+
+/* TIMER */
+
+setInterval(function(){
+
+let now = new Date().getTime()
+
+let distance = birthday - now
+
+let days = Math.floor(distance / (1000*60*60*24))
+let hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60))
+let minutes = Math.floor((distance % (1000*60*60)) / (1000*60))
+let seconds = Math.floor((distance % (1000*60)) / 1000)
+
+document.getElementById("timer").innerHTML =
+"⏳ Countdown to classified event: " +
+days+"d "+hours+"h "+minutes+"m "+seconds+"s"
+
+},1000)
+
+/* typing message */
+
+function start(){
+
+document.getElementById("music").play()
+
+let text="Ray... 🎂\nSystem detected an important date approaching.\nYour birthday is coming soon.\nSomeone is already excited for it."
+
+let i=0
+
+function type(){
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i)
+i++
+setTimeout(type,50)
+}else{
+document.getElementById("cake").style.display="block"
+launchConfetti()
+}
+}
+
+type()
+}
+
+/* blow candles */
+
+function blow(){
+document.getElementById("candles").innerHTML=""
+document.getElementById("hidden").style.display="block"
+}
+
+/* balloons */
+
+for(let i=0;i<50;i++){
+
+let b=document.createElement("div")
+
+b.className="balloon"
+
+b.style.left=Math.random()*100+"%"
+b.style.background="hsl("+Math.random()*360+",70%,60%)"
+b.style.animationDuration=(8+Math.random()*8)+"s"
+
+document.body.appendChild(b)
+
+}
+
+/* confetti */
+
+function launchConfetti(){
+
+for(let i=0;i<120;i++){
+
+let c=document.createElement("div")
+
+c.className="confetti"
+
+c.style.left=Math.random()*100+"%"
+c.style.background="hsl("+Math.random()*360+",80%,60%)"
+c.style.animationDuration=(3+Math.random()*3)+"s"
+
+document.body.appendChild(c)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
+```
